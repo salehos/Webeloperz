@@ -38,10 +38,8 @@ def contactus(request):
 
     # new logic!
     if request.method == 'POST':
-        form = form_class(data=request.POST)
-
-    def contact(request):
-        if form.is_valid():
+        form = form_class( data=request.POST)
+        if form.is_valid:
             # title = request.POST.get(
             #     'title'
             #     , '')
@@ -68,8 +66,7 @@ def contactus(request):
             #     headers={'Reply-To': email}
             # )
             # email.send()
-            return redirect('')
-
+            return render(request,'itsok.html',)
     return render(request, 'contactus.html', {
         'form': form_class,
     })
