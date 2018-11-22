@@ -15,19 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from patterns import patterns
 
 from main import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls,name='admin'),
-    path('', views.home ,name=''),
-    path('login/', views.login, name = 'login'),
-    path('signup/', views.signup,name ='signup'),
-
+    path('admin/', admin.site.urls, name='admin'),
+    path('', views.home, name=''),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    path('login/', views.login_, name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('logout/', views.logout_, name='logout'),
+    path('contactus/' , views.contactus , name = 'contactus'),
 ]
-
 
 # urlpatterns = patterns(' ',
 #                    url(r'^$', views.index, name='index'),

@@ -40,9 +40,14 @@ body {
 
 
 <div id="id_navbar">
-  <a id="id_navbar_home" href="home.html">Home</a>
-  <a id="id_navbar_login" href="login.html">Login</a>
-  <a id="id_navbar_signup" href="signup.html">Sign Up</a>
+  <a id="id_navbar_gome" href="home.html">Home</a>
+    {% if user.is_authenticated %}
+  <a id="id_navbar_logout" href="{% url 'logout' %}">Log out</a>
+    {% else %}
+    <a id="id_navbar_login" href="{% url 'login' %}">Login</a>
+    {% endif %}
+  <a id="id_navbar_signup" href="{% url 'signup' %}">Sign Up</a>
+    <a id="id_navbar_contact_us" href="{% url 'contactus' %}">Contact Us</a>
 </div>
 
 
@@ -61,7 +66,7 @@ body {
         {% endfor %}
       </p>
     {% endfor %}
-    <button id="id_submit" type="submit">Sign up</button>
+    <button id="id_submit" type="submit">Contact Us</button>
   </form>
 
 
