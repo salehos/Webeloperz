@@ -40,14 +40,29 @@ body {
 
 
 <div id="id_navbar">
-  <a id="id_navbar_gome" href="home.html">Home</a>
+  <a id="id_navbar_home" href="home.html">Home</a>
   <a id="id_navbar_login" href="login.html">Login</a>
   <a id="id_navbar_signup" href="signup.html">Sign Up</a>
 </div>
 
-<div>
-    <center>به سامانه استاد جو خوش آمدید</center>
-</div>
+
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button id="id_submit" type="submit">Sign up</button>
+  </form>
 
 
 </body>
