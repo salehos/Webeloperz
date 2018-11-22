@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
 
     <link rel="stylesheet" type="text/css" href="https://semantic-ui.com/dist/semantic.min.css">
     <script type="text/javascript" href="https://cdn.transifex.com/live.js"></script>
     <link rel="stylesheet" href="maincss.css">
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" DIR="ltr">
     <title>sign up users</title>
 </head>
 
@@ -45,13 +45,13 @@ body {
 
 
 <div id="id_navbar">
-  <a id="id_navbar_gome" href="home.html">Home</a>
-  <a id="id_navbar_login" href="login.html">Login</a>
-  <a id="id_navbar_signup" href="signup.html">Sign Up</a>
+  <a id="id_navbar_home" href="{% url '' %}">Home</a>
+  <a id="id_navbar_login" href="{% url 'login' %}">Login</a>
+  <a id="id_navbar_signup" href="{% url 'signup' %}">Sign Up</a>
 </div>
 
 <div>
-    <center>به سامانه استاد جو خوش آمدید</center>
+    <center>سلام. به سامانه استادجو خوش آمدید.</center>
 </div>
 
 
