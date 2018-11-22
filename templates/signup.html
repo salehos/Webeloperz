@@ -67,7 +67,16 @@ body {
         {% endfor %}
       </p>
     {% endfor %}
-    <button id="id_submit" type="submit">Contact Us</button>
+    <button id="id_submit" type="submit">Submit</button>
+  {% if error1 %}
+        <p>کاربری با نام کاربری وارد شده وجود دارد</p><br>
+        {% endif %}
+        {% if error2 %}
+        <p>گذرواژه و تکرار گذرواژه یکسان نیستند</p><br>
+        {% endif %}
+        {% if error3 %}
+        <p>کاربری با ایمیل وارد شده وجود دارد</p><br>
+        {% endif %}
   </form>
 
 
