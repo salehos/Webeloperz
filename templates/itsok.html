@@ -43,6 +43,7 @@ body {
   <a id="id_navbar_gome" href="home.html">Home</a>
     {% if user.is_authenticated %}
   <a id="id_navbar_logout" href="{% url 'logout' %}">Log out</a>
+        <a id="id_navbar_profile" href="{% url 'profile' %}"> Profile</a>
     {% else %}
     <a id="id_navbar_login" href="{% url 'login' %}">Login</a>
     {% endif %}
@@ -50,5 +51,6 @@ body {
     <a id="id_navbar_contact_us" href="{% url 'contactus' %}">Contact Us</a>
 </div>
 <p>درخواست شما ثبت شد</p>
+
 </body>
 </html>

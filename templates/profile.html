@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>profile</title>
 </head>
 <body>
-
 <style>
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -50,23 +50,14 @@ body {
   <a id="id_navbar_signup" href="{% url 'signup' %}">Sign Up</a>
     <a id="id_navbar_contact_us" href="{% url 'contactus' %}">Contact Us</a>
 </div>
-
 <div>
-    <center>به سامانه استاد جو خوش آمدید</center>
+    <center>سلام. به سامانه استادجو خوش آمدید.</center>
 </div>
 
-
-<h2>Login</h2>
-<form action="." method="post">
-    {% csrf_token %}
-  First name:<br>
-  <input type="text" id="id_username" name="username" >
-  <br>
-  Last name:<br>
-  <input type="password" id="id_password" name="password" >
-  <br><br>
-  <input id="id_submit" type="submit" value="Submit">
-</form>
+    <a id="id_edit_profile" href="{% url 'editnameandusername' %}">edit name and username</a>
+    <p id="id_username">{{ username }} </p>
+    <p id="id_first_name">{{ firstname }}</p>
+    <p id="id_last_name">{{ lastname }}</p>
 
 </body>
 </html>

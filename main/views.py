@@ -1,5 +1,6 @@
 from email.message import EmailMessage
 
+import self as self
 from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -23,6 +24,7 @@ def login_(request):
             return render(request, 'error.html')
     return render(request, 'login.html')
 
+
 #
 # def contactus(request):
 #     if request.method == 'POST':
@@ -38,7 +40,7 @@ def contactus(request):
 
     # new logic!
     if request.method == 'POST':
-        form = form_class( data=request.POST)
+        form = form_class(data=request.POST)
         if form.is_valid:
             # title = request.POST.get(
             #     'title'
@@ -62,11 +64,11 @@ def contactus(request):
             #     "New contact form submission",
             #     content,
             #     "Your website" + '',
-            #     ['youremail@gmail.com'],
+            #     ['ostadju@fastmail.com'],
             #     headers={'Reply-To': email}
             # )
             # email.send()
-            return render(request,'itsok.html',)
+            return render(request, 'itsok.html', )
     return render(request, 'contactus.html', {
         'form': form_class,
     })
@@ -74,7 +76,7 @@ def contactus(request):
 
 def logout_(request):
     logout(request)
-    return render(request, 'error.html')
+    return HttpResponseRedirect("/")
 
 
 def signup(request):
@@ -89,4 +91,25 @@ def signup(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', )
+
+
+def profile(request):
+    return render(request, 'profile.html', {'username': request.user.username, 'firstname': request.user.first_name,
+                                            'lastname': request.user.last_name})
+
+
+def editnameandusername(request):
+    if request.method == 'POST':
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        gender =  request.POST.get('gender')
+        bio = request.POST.get('bio')
+        request.user.first_name = firstname
+        request.user.last_name = lastname
+
+        request.user.save();
+        return render(request, 'profile.html', {'username': request.user.username, 'firstname': request.user.first_name,
+                                            'lastname': request.user.last_name}  )
+    return render(request, 'editnameandusername.html' , )
+
