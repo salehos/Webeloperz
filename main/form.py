@@ -16,7 +16,8 @@ class SignUpForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         if not User.objects.filter(email__iexact=email, is_active=True).exists():
-            raise ValidationError("There is no user registered with the specified email address!")
+            pass
+            # raise ValidationError("There is no user registered with the specified email address!")
         return email
 
     class Meta:

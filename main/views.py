@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 from django.core.checks import messages
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -40,27 +41,7 @@ def contactus(request):
                 , '')
             text = request.POST.get('text', '')
 
-            # Email the profile with the
-            # contact information
-            # template = get_template('contact_template.txt')
-            # context = {
-            #     'title': title,
-            #     'email': email,
-            #     'text': text,
-            # }
-            # content = template.render(context)
-
-            # email = EmailMessage(
-            #     title,
-            #     text,
-            #     myemail,
-            #     ['ostadju@fastmail.com'],
-            #     '',
-            #     reply_to=[],
-            #     headers={'Message-ID': 'foo'},
-
-            # )
-            # email.send()
+            send_mail(title, text, myemail, 'ostadju@fastmail.com')
             return render(request, 'itsok.html', )
     return render(request, 'contactus.html', {
         'form': form_class,
@@ -88,7 +69,7 @@ def signup(request):
         if User.objects.filter(username=request.POST.get('username')).exists():
             context["error1"] = True
         if context["error1"] or context["error2"] or context["error3"]:
-            return render(request, "signup.html", context)
+            return render(request, "blank.html", context)
         if form.is_valid():
             form.save()
             return redirect('')
@@ -109,15 +90,11 @@ def profile(request):
 
 def editnameandusername(request):
     if request.method == 'POST':
-        firstname = request.POST.get('firstname')
-        lastname = request.POST.get('lastname')
-        gender = request.POST.get('gender')
-        bio = request.POST.get('bio')
-        request.user.first_name = firstname
-        request.user.last_name = lastname
-
-        request.user.save();
-        return render(request, 'profile.html', {'username': request.user.username, 'firstname': request.user.first_name,
-                                                'lastname': request.user.last_name, 'bio': request.user.bio,
-                                                'gender': request.user.gender})
+        user = User.objects.get(username=request.user.username)
+        user.first_name = request.POST.get('firstname')
+        user.last_name = request.POST.get('lastname')
+        user.profile.gender = request.POST.get('gender')
+        user.profile.bio = request.POST.get('bio')
+        user.save()
+        return HttpResponseRedirect("profile.html")
     return render(request, 'editnameandusername.html', )

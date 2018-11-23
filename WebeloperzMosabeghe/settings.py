@@ -100,13 +100,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+Email_Host = 'smtp@gmail.com'
+EMAIL_HOST_USER = 'salehos763@gmail.com'
+EMAIL_HOST_PASSWORD = 'HARFs2.blogfa.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 
-EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'ostadju@fastmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-EMAIL_PORT = 1025
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -126,5 +125,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+AUTH_PROFILE_MODULE = 'YOURAPP.UserProfile'
 LOGIN_REDIRECT_URL = ''
