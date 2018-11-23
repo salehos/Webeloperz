@@ -8,11 +8,11 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-    group = forms.ChoiceField(choices=(("Student", "دانشجو"), ("Teacher", "استاد")))
+    type = forms.TypedChoiceField(widget=forms.RadioSelect, choices=(("Student", "دانشجو"), ("Teacher", "استاد")))
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'group',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'type',)
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -23,7 +23,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'group',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'type',)
 
 
 class ContactForm(forms.Form):
@@ -33,3 +33,21 @@ class ContactForm(forms.Form):
         widget=forms.Textarea
     )
     email = forms.EmailField(required=True)
+
+
+class NavSearchForm(forms.Form):
+    query = forms.CharField(max_length=30, required=False)
+
+
+def ProductsPage(request):
+    search_form = NavSearchForm()
+    if request.GET.has_key('query'):
+        query = request.GET['query'].strip()
+    # deal with 'Products' here...
+
+
+def ServicePage(request):
+    search_form = NavSearchForm()
+    if request.GET.has_key('query'):
+        query = request.GET['query'].strip()
+    # deal with 'Service' here...

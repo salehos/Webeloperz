@@ -70,7 +70,7 @@ def signup(request):
             return render(request, "blank.html", context)
         if form.is_valid():
             user = form.save()
-            level = form.cleaned_data['group']
+            level = form.cleaned_data['type']
             if level == 'Teacher':
                 user.groups.add(Group.objects.get(name='Teacher'))
             else:
@@ -86,9 +86,13 @@ def home(request):
 
 
 def profile(request):
+    if request.user.groups.filter(name='Teacher').exists():
+        group = "استاد"
+    else:
+        group = "دانشجو"
     return render(request, 'profile.html', {'username': request.user.username, 'firstname': request.user.first_name,
                                             'lastname': request.user.last_name, 'bio': request.user.profile.bio,
-                                            'gender': request.user.profile.gender})
+                                            'gender': request.user.profile.gender , 'group' : group})
 
 
 def editnameandusername(request):
