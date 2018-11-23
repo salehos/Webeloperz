@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, logout, login
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.core.checks import messages
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
@@ -53,8 +53,8 @@ def logout_(request):
 
 def signup(request):
     context = {
-        "error1":False,
-        "error2":False,
+        "error1": False,
+        "error2": False,
         "error3": False
     }
 
@@ -69,7 +69,12 @@ def signup(request):
         if context["error1"] or context["error2"] or context["error3"]:
             return render(request, "blank.html", context)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            level = form.cleaned_data['level']
+            if level == 'Teacher':
+                user.groups.add(Group.objects.get(name = 'Teacher'))
+            else:
+                user.groups.add(Group.objects.get(name = 'Student'))
             return redirect('')
 
     else:
@@ -83,7 +88,8 @@ def home(request):
 
 def profile(request):
     return render(request, 'profile.html', {'username': request.user.username, 'firstname': request.user.first_name,
-                                            'lastname': request.user.last_name})
+                                            'lastname': request.user.last_name, 'bio' : request.user.profile.bio ,
+                                                           'gender' : request.user.profile.gender})
 
 
 def editnameandusername(request):
@@ -93,8 +99,12 @@ def editnameandusername(request):
         user.last_name = request.POST.get('lastname')
         user.profile.gender = request.POST.get('gender')
         user.profile.bio = request.POST.get('bio')
+        user.profile.gender = 'مرد'
+        if user.profile.gender == 'F':
+            user.profile.gender = 'زن'
         user.save()
-        return render(request, 'editnameandusername.html',{'username': request.user.username, 'firstname': request.user.first_name,
-                                            'lastname': request.user.last_name , 'bio' : request.user.profile.bio ,
-                                                           'gender' : request.user.profile.gender})
+        return render(request, 'profile.html',{'username': request.user.username, 'firstname': request.user.first_name,
+                                            'lastname': request.user.last_name ,
+                                                           'gender' : request.user.profile.gender,
+                                               'bio' : request.user.profile.bio })
     return render(request, 'editnameandusername.html', )

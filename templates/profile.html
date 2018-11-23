@@ -53,13 +53,14 @@ body {
 <div>
     <center>سلام. به سامانه استادجو خوش آمدید.</center>
 </div>
-
+    <p>شما به عنوان  وارد شده اید</p>
     <a id="id_edit_profile" href="{% url 'editnameandusername' %}">edit name and username</a>
     <p id="id_username">{{ username }} </p>
     <p id="id_first_name">{{ firstname }}</p>
     <p id="id_last_name">{{ lastname }}</p>
-    <p id="id_bio">{{ profile.bio }}</p>
-    <p id="gender">{{ profile.gender }}</p>
+    <p id="id_gender">{{ gender }}</p>
+    <p id="id_bio">{{ bio }}</p>
+
 
 </body>
 </html>
