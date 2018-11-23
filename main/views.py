@@ -3,13 +3,11 @@ from django.contrib.auth.models import User
 from django.core.checks import messages
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
-
-
 from main.form import SignUpForm, ContactForm
+from main.models import create_user_profile, Profile
 
 
 def login_(request):
@@ -96,5 +94,7 @@ def editnameandusername(request):
         user.profile.gender = request.POST.get('gender')
         user.profile.bio = request.POST.get('bio')
         user.save()
-        return HttpResponseRedirect("profile.html")
+        return render(request, 'editnameandusername.html',{'username': request.user.username, 'firstname': request.user.first_name,
+                                            'lastname': request.user.last_name , 'bio' : request.user.profile.bio ,
+                                                           'gender' : request.user.profile.gender})
     return render(request, 'editnameandusername.html', )
